@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+    <head>
+        <title>Year of Code</title>
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+        <style type="text/css">
+            .codes {
+                top: 0px;
+                position: relative;
+            }
+            body {
+                overflow: hidden;
+            }
+        </style>
+        <script>
+            // Returns a random integer between min (included) and max (excluded)
+            // Using Math.round() will give you a non-uniform distribution!
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min)) + min;
+            }
+            function initMove() {
+                var flag = -1;
+                timer = setInterval(function() {
+                    flag = ~flag + 1;
+                    $(".codes").each(
+                            function(e) {
+                                $(this).animate({
+                                    top: "+=" + (flag * getRandomInt(0, 300)),
+                                    left: "+=" + (flag * getRandomInt(0, 300))
+                                }, 300, "linear", function() {
+                                    var top = $(this).css("top").replace(/[^-\d\.]/g, ''); 
+                                    if(top < 0 || top > window.screen.availHeight) {
+                                        $(this).css("top", "0px");
+                                    }
+                                    var left = $(this).css("left").replace(/[^-\d\.]/g, ''); 
+                                    if (left < 0 || left > window.screen.availWidth) {
+                                        $(this).css("left", "0px");
+                                    }
+                                });
+                            }
+                            );
+                }, 500);
+            }
+        </script>
+    </head>
+
+    <body onload="initMove()">
+        <h1>Year of Code</h1>
+        <div class="codes">You can pick it up in a day</div>
+        <div class="codes">Code is a vital skill</div>
+        <div class="codes">Code is an international language</div>
+        <div class="codes">I think I could've done it a lot better</div>
+        <div class="codes" id="code">Code is the language you use to instruct computers</div>
+        <div class="codes" id="learn">You can actually build a website in an hour</div>
+        <div class="codes" id="zuckerberg">Who knows, I might be the next Zuckerberg</div>
+    </body>
+</html>

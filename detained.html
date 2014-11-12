@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <title>AM I BEING DETAINED?</title>
+    <script type="text/javascript">
+        function detained() {
+            var detained = document.getElementById("detained"); 
+            if (detained !== undefined) {
+                detained.innerHTML += "AM I BEING DETAINED? ";
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+        }
+
+        document.onmousemove = document.onmousedown = document.onmouseover = 
+          document.onmouseup = document.onkeydown = document.onkeyup = 
+          document.onkeypress = detained;
+    </script>
+  </head>
+
+  <body>
+    <h1>AM I BEING DETAINED?</h1>
+    <div>
+        <p id="detained">
+        </p>
+    </div>
+  </body>
+</html>

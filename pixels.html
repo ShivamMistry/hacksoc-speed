@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+    <head>
+        <title>Pixels</title>
+        <script type="text/javascript">
+            ACCEPTED_ENDINGS = [".png", ".jpg", ".jpeg", ".gif", ".bmp", 
+                                ".tiff", ".tif"]
+
+            function result() {
+                return document.getElementById("result");
+            }
+            function readFile(f) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    readURL(reader.result);    
+                }
+                reader.readAsDataURL(f);
+            }
+
+            function readURL(f) {
+                var img = new Image();
+                img.onload = function() {
+                    if (img.height < 400 || img.width < 400) {
+                       result().innerHTML="<p>Your image has approximately <b>2</b> pixels.</p>";
+                    } else {
+                        result().innerHTML="<p>Your image has approximately <b>" + img.width * img.height + "</b> pixels.";
+                    }
+                }
+                img.src = f;
+
+            }
+
+            function selectFile() {
+                var fileElem = document.getElementById("file");
+                console.log(fileElem.files.length);
+                if (fileElem.files.length > 0) {
+                    // select the first file in selection
+                    var file = fileElem.files[0];
+                    var flag = false;
+                    for (var i = 0; i < ACCEPTED_ENDINGS.length; i++) {
+                        if (file.name.toLowerCase().endsWith(ACCEPTED_ENDINGS[i])) { 
+                            flag = true; 
+                            break; 
+                        }
+                    }
+                    if (flag) {
+                        // if your browser doesn't like this, upgrade.
+                        if (typeof(FileReader) == undefined) {
+                            alert("YOU ARE USING AN OLD BROWSER, GO AWAY!");
+                            return;
+                        }
+                        readFile(file);
+                    } else {
+                        alert("That isn't an image mate, or it's not supported");
+                    }
+                }
+            }   
+            function selectURL() {
+                // Later m8
+                readURL(document.getElementById("url").value);
+            }
+
+            function initListeners() {
+                String.prototype.endsWith = function(suffix) {
+                        return this.indexOf(suffix, this.length - suffix.length) !== -1;
+                };
+                document.getElementById("file").addEventListener("change", selectFile);
+            }
+        </script>
+    </head>
+
+    <body onload="initListeners();">
+        <h1>Pixels</h1>
+        <div id="fileupload">
+            <p>Select an image: 
+                <input type="file" id="file"/>
+            </p>
+            <p>Or, enter a URL:
+                <input type="text" id="url"/>
+                <button onclick="selectURL()">Select</button>
+            </p>
+        </div>
+        <div id="result">
+        </div>
+    </body>
+</html>
