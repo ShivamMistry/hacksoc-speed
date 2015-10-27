@@ -56,16 +56,28 @@
                     );
                     $("body").css("background-color", getRandomColor());
                     $(".codes").css("font-size", getRandomInt(100, 300) + "%");
-                }, 200);
+                }, 50);
             }
 
             document.onmousedown = function(e) {
-                document.getElementById("hitmark").play();
+                var hitmarker = document.getElementById("hitmark");
                 var hitmarker = $("#hitmarker");
                 hitmarker.show();
                 hitmarker.css("position", "absolute");
                 hitmarker.css("left", e.clientX + "px");
                 hitmarker.css("right", e.clientY + "px");
+
+                var times = 10;
+                var count = 0;
+                var loop = setInterval(function() {
+                    if (count >= times) {
+                        clearInterval(loop);
+                        return;
+                    }
+                    document.getElementById("hitmark").play();
+                    count++;
+                }, 200);
+
 
             }
         </script>
@@ -78,6 +90,7 @@
         <audio id="airhorn" src="resources/AIRHORN.mp3" autoplay loop></audio>
         <audio id="sonic" src="resources/SANIC.mp3" autoplay loop></audio>
         <audio id="wombo" src="resources/WOMBOCOMBO.mp3" autoplay loop></audio>
+        <audio id="spooky" src="resources/SPOOKY.mp3" autoplay loop></audio>
 
         <div class="codes">THAT'S RIGHT GET NO SCOPED</div>
         <div class="codes">MOM GET THE CAMERA</div>
@@ -88,6 +101,6 @@
         <div class="codes">WHAT'S THE WECOMENDED AMMOUNT OF DEDOTATED WAM FOR A SERVER?</div>
         <div class="codes"><img src="http://i.imgur.com/p11nInz.gif"/></div>
         <div class="codes"><img src="http://i.imgur.com/bvePk6m.gif"/></div>
-        <div id="hitmarker" style="display: hide;"><img src="http://i.imgur.com/ii2dFcY.png"/></div>
+        <div id="hitmarker" style="display: hide;" class="hitmark"><img src="http://i.imgur.com/ii2dFcY.png"/></div>
     </body>
 </html>
